@@ -3,12 +3,15 @@ class Api::CartsController < ApplicationController
     def show 
         cart = @user.carts.find_by(status: "open")
         if !cart
+            
             cart = @user.carts.create!(new_cart_hash)
         end
+        # cart.price_total_update
         render json: cart, include: ["cart_items" , "cart_items.product", "cart_items.product.seller"]
     end
     def destroy
-        cart = @user.carts.find_by(status: "open")
+        # cart = @user.carts.find_by(status: "open")
+        cart = Cart.find_by(id: params[:id])
         cart.destroy
         @user.carts.create!(new_cart_hash)
         head :no_content

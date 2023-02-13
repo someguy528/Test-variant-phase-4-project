@@ -18,4 +18,6 @@ class Cart < ApplicationRecord
         sum_prices = all_prices.sum
         self.update(price_total: sum_prices)
     end
+
+
 end
