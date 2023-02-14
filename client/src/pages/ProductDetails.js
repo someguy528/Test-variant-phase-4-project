@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { Link, useHistory, useParams, useRouteMatch } from "react-router-dom"
 import { UserContext } from "../components/context/UserContext"
 
-function ProductDetails({products, onProductDelete}){
+function ProductDetails({products, cart, onProductDelete, onCartItemAdd}){
     const history = useHistory()
     
     const [errors , setErrors] = useState([])
@@ -27,7 +27,7 @@ function ProductDetails({products, onProductDelete}){
         setCartItemQuantity(e.target.value)
     }
     function handleCartItemAddClick(){
-        fetch(`/api/cart_items`,{
+        fetch(`/api/carts/${cart.id}/cart_items`,{
             method: "POST",
             headers: {
                 "Content-Type" : "application/json"
@@ -38,7 +38,10 @@ function ProductDetails({products, onProductDelete}){
             })
         }).then(resp => {
             if(resp.ok){
-                resp.json().then(()=>history.push("/cart"))
+                resp.json().then((data)=>{
+                onCartItemAdd(data);
+                console.log(data);
+                history.push("/cart")})
             }else{
                 resp.json().then(error=> setErrors(error.errors))
             }

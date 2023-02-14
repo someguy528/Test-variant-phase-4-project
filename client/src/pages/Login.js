@@ -2,7 +2,7 @@ import { useState, useContext } from "react"
 import { Redirect, useHistory } from "react-router-dom";
 import { UserContext } from "../components/context/UserContext"
 
-function Login(){
+function Login({fetchCartUser}){
     const {user, setUser} = useContext(UserContext);
     const [errors , setErrors] = useState([])
     const [login, setLogin] = useState({
@@ -29,6 +29,7 @@ function Login(){
             if(resp.ok){
                 resp.json().then((data) => {
                     setUser(data);
+                    fetchCartUser();
                     history.push("/")
                 })
             } else {
@@ -37,7 +38,7 @@ function Login(){
         })
     }
 
-    if(user !== false){return <Redirect to="/cart" />}
+    if(user !== false){return <Redirect to="/" />}
 
     return (
         <section>

@@ -6,24 +6,9 @@ import ProductEdit from "./ProductEdit";
 import {Switch, Route, useRouteMatch, Link} from "react-router-dom";
 import { UserContext } from "../components/context/UserContext";
 
-function ProductsPage(){
+function ProductsPage({cart, products, setProducts, onCartItemAdd}){
     const {user} = useContext(UserContext)
     const {url} = useRouteMatch()
-    const [products,setProducts] = useState(null)
-    
-    useEffect(()=>{
-        fetch("/api/products")
-        .then(resp=>resp.json())
-        .then(productsData=>{
-            const formatProductsData = productsData.map(p=>{
-                if(!parseFloat(p.price[p.price.length-2])){
-                    p.price = p.price + "0"
-                    return p
-                }else return p
-            })
-            setProducts(formatProductsData)
-        })  
-    },[])
     if(!products || user === null){return(<h1>Loading...</h1>)}
 
     function handleProductAdd(newProduct){
@@ -67,7 +52,7 @@ function ProductsPage(){
                     <ProductEdit products={products} onProductEdit={handleProductEdit} />
                 </Route>
                 <Route exact path={`${url}/:productId`} >
-                    <ProductDetails products={products} onProductDelete={handleProductDelete} />
+                    <ProductDetails products={products} cart={cart} onProductDelete={handleProductDelete} onCartItemAdd={onCartItemAdd} />
                 </Route>
             </Switch>
             

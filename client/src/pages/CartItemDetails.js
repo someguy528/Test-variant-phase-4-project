@@ -17,7 +17,8 @@ function CartItemDetails({cart, onCartItemEdit, onCartItemDelete}){
     })
 
     function handleCartItemEditClick(){
-        fetch(`/api/cart_items/${cartItemId}`,{
+        // fetch(`/api/${cart.id}/cart_items/${cartItemId}`,{
+        fetch(`/api/carts/${cart.id}/cart_items/${cartItemId}`,{
             method: "PATCH",
             headers:{
                 "Content-Type":"application/json"
@@ -34,12 +35,12 @@ function CartItemDetails({cart, onCartItemEdit, onCartItemDelete}){
         })
     }
     function handleCartItemDeleteClick(){
-        fetch(`/api/cart_items/${cartItemId}`,{
+        fetch(`/api/carts/${cart.id}/cart_items/${cartItemId}`,{
             method: "DELETE"
         }).then(resp=>{
             if(resp.ok){
                 onCartItemDelete(cartItem)
-                history.push(`${url.replace(`/${cartItemId}`,"")}`)
+                history.push(`${url.replace(`/${cart.id}/cart_items/${cartItemId}`,"")}`)
             }
         })
     }
@@ -62,7 +63,7 @@ function CartItemDetails({cart, onCartItemEdit, onCartItemDelete}){
         {errors.map(error => {
                 return (<header key={error} >{error}</header>)
             })}
-        <p> <Link to={`${url.replace(`/${cartItemId}`,"")}`} >Go Back</Link>  </p>
+        <p> <Link to={`${url.replace(`/${cart.id}/cart_items/${cartItemId}`,"")}`} >Go Back</Link>  </p>
     </section>
     )
 }

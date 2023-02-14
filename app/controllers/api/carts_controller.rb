@@ -3,7 +3,6 @@ class Api::CartsController < ApplicationController
     def show 
         cart = @user.carts.find_by(status: "open")
         if !cart
-            
             cart = @user.carts.create!(new_cart_hash)
         end
         # cart.price_total_update

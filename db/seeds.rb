@@ -6,12 +6,8 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 dummy_usernames = ["Jackie15", "Layton07", "Maria15", "Jill00" , "Ashley21"]
+dummy_names = ["Jackie", "Layton", "Maria", "Jill", "Ashley"]
 dummy_products = [
-    # {name: "Potted Plant", description: "A nice plant", price: 15.00, available: true, seller_id: 1},
-    # {name: "Hose 75ft", description: "A long hose", price: 35.00, available: true, seller_id: 2},
-    # {name: "Metal Plate", description: "A metal plate of unknown uses", price: 20.00, available: true, seller_id: 3},
-    # {name: "SSD 500gb", description: "This unknown brand SSD stores data", price: 80.00, available: true, seller_id: 4},
-    # {name: "Rare Cd", description: "A hard to find cd", price: 120.00, available: false, seller_id: 5}
     {name: "Potted Plant", description: "A nice plant", price: "15.00", available: true},
     {name: "Hose 75ft", description: "A long hose", price: "34.99", available: true},
     {name: "Metal Plate", description: "A metal plate of unknown uses", price: "19.99", available: true},
@@ -21,7 +17,7 @@ dummy_products = [
 ]
 p "Creating Users..."
 dummy_usernames.each do |i|
-    User.create(username: i , password: "abcd1234" , password_confirmation: "abcd1234", name: "defaultexample")
+    User.create(username: i , password: "abcd1234" , password_confirmation: "abcd1234", name: dummy_names[i])
 end
 
 p "Creating Products..."

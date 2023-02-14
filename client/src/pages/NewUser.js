@@ -2,7 +2,7 @@ import { useState, useContext } from "react"
 import { Redirect, useHistory } from "react-router-dom";
 import { UserContext } from "../components/context/UserContext"
 
-function NewUser(){
+function NewUser({fetchCartUser}){
     const {user, setUser} = useContext(UserContext);
     const [errors , setErrors] = useState([])
     const [newUser, setNewUser] = useState({
@@ -31,6 +31,7 @@ function NewUser(){
             if(resp.ok){
                 resp.json().then(data => {
                     setUser(data);
+                    fetchCartUser()
                     console.log(data);
                     history.push("/")
                 })
