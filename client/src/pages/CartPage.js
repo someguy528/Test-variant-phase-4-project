@@ -37,7 +37,7 @@ function CartPage({cart, setCart, fetchCartUser}){
         }).then(resp=>{
             if(resp.ok){
                 fetchCartUser()
-                history.push("/")
+                // history.push("/")
             }
         })
     }

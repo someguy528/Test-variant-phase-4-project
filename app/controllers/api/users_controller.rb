@@ -3,7 +3,7 @@ skip_before_action :authorize, only: [:create, :index]
 
     def create
         user = User.create!(user_params)
-        user.carts.create!(new_cart_hash)
+        # user.carts.create!(new_cart_hash)
         session[:user_id] = user.id
         render json: user, status: :created
     end

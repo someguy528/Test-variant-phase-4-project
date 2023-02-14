@@ -1,8 +1,10 @@
 class Cart < ApplicationRecord
     belongs_to :buyer, class_name: "User", foreign_key: "buyer_id", required: true
-    validates :buyer_id, :status, :price_total, presence: true
+    
     has_many :cart_items, dependent: :destroy
     has_many :products, through: :cart_items
+
+validates :buyer_id, :status, :price_total, presence: true
 
     def newCart
         self.create!({
